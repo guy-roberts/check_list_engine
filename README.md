@@ -1,5 +1,10 @@
-# CheckListEngine
-Short description and motivation.
+# Check List Engine
+
+This engine is a REST API to create and manage Check List Definitions i.e. templates for creating actual check lists. 
+
+Check Lists are also stored by the api.  They are made up of sections within which are generic parts like multiple choice fields, text fields, address details, photographs with captions, signatures and dates. 
+
+The idea is that this engine can be used in Rails applications to provide the REST API, then a front end component in something like Angular will be used to build and edit the templates.  Then the template definitions will be used in an Ionic mobile app so that people can fill in examples of the check lists.
 
 ## Usage
 How to use my plugin.
