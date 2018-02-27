@@ -12,8 +12,31 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 #
+
+#require File.expand_path('../dummy/config/environment.rb',  __FILE__)
+require File.expand_path('../../spec/dummy/config/environment', __FILE__)
+
+require 'rspec-rails'
+require 'rails_helper'
+require 'route_helper'
+
+require 'support/api_helper'
+require 'support/request_helper'
+
+
+
+DatabaseCleaner.strategy = :truncation
+
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  config.include ApiHelper, type: :api
+  config.include Requests::JsonHelpers, type: :api
+
+  config.include RouteHelper, type: :routing
+  config.include RouteHelper, type: :controller
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
