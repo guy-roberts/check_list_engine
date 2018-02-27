@@ -13,7 +13,15 @@ describe 'Audit Type', type: :request do
     end
 
     it 'Returns a paginated list of audit types' do
-      
+      FactoryBot.create_list :audit_type, 200
+
+      path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
+
+      get path_to_get
+
+      audit_types = JSON.parse(response.body)
+
+      expect(audit_types.count).to eq(25)
     end
   end
 

@@ -19,6 +19,9 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
+# Pagination
+gem 'kaminari', '~> 1.1.1'
+
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'simplecov', :require => false, :group => :test
 
@@ -32,12 +35,13 @@ group :development, :test do
   gem 'rspec', '~> 3.7'
   gem 'rspec-rails', '~> 3.7.2'
 
-  gem 'factory_bot'
+  gem 'factory_bot', '~> 4.8.2'
+
+  gem 'faker', '~> 1.8.7'
 
   gem 'database_cleaner', '~> 1.5.3'
 
-  gem 'rack-test'
+  gem 'rack-test', '~> 0.8.2'
 
-  gem 'rubocop'
-
+  gem 'rubocop', '~> 0.52.1'
 end

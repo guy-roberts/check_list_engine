@@ -9,7 +9,9 @@ module CheckListEngine
     def index
       Rails.logger.info 'index in the engines AuditTypesController called'
 
-      render json: AuditType.all
+      @audit_types = AuditType.order(:title).page params[:page]
+
+      render json: @audit_types
     end
 
     def show
