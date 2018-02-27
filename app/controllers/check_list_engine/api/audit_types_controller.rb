@@ -13,7 +13,7 @@ module CheckListEngine
     end
 
     def show
-
+      render json: @audit_type, method: :show
     end
 
     # POST /audit_type
@@ -25,6 +25,22 @@ module CheckListEngine
       else
         render json: audit_type.errors, status: :unprocessable_entity
       end
+    end
+
+    # PATCH/PUT /audit_type/1
+    def update
+      if @audit_type.update(audit_type_params)
+        render json: @audit_type
+      else
+        Rails.logger.error("Failed to update audit_type")
+
+        render json: @audit_type.errors, status: :unprocessable_entity
+      end
+    end
+
+    # DELETE /audit_type/1
+    def destroy
+      @audit_type.destroy
     end
 
     private
