@@ -21,6 +21,7 @@ describe 'Audit Type', type: :request do
 
       audit_types = JSON.parse(response.body)
 
+      # 25 is the default page size
       expect(audit_types.count).to eq(25)
     end
   end
