@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228151520) do
+ActiveRecord::Schema.define(version: 20180301125338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,4 +41,6 @@ ActiveRecord::Schema.define(version: 20180228151520) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "check_list_engine_audit_type_components", "check_list_engine_audit_types", column: "audit_type_id", name: "fk_audit_type_component__audit_type"
+  add_foreign_key "check_list_engine_audit_type_components", "check_list_engine_available_components", column: "available_component_id", name: "fk_audit_type_component__available_component"
 end
