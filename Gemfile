@@ -22,7 +22,8 @@ gem 'puma', '~> 3.0'
 # Pagination
 gem 'kaminari', '~> 1.1.1'
 
-gem 'active_model_serializers', '~> 0.10.0'
+gem 'fast_jsonapi'
+
 gem 'simplecov', :require => false, :group => :test
 
 gem 'json', github: 'flori/json', branch: 'v1.8'

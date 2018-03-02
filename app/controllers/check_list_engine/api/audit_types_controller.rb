@@ -1,21 +1,25 @@
 require_dependency 'check_list_engine/application_controller'
 
-
 module CheckListEngine
   class Api::AuditTypesController < ApplicationController
     before_action :set_audit_type, only: [:show, :edit, :update, :destroy]
 
     # GET /audit_types
     def index
-      Rails.logger.info 'index in the engines AuditTypesController called'
-
       @audit_types = AuditType.order(:title).page params[:page]
+
+      AuditTypeSerializer.new(@audit_types).serialized_json
 
       render json: @audit_types
     end
 
     def show
-      render json: @audit_type, method: :show
+
+      # Tell the serializer to include information for the audit_type_components
+      options = {}
+      options[:include] = [:audit_type_components]
+
+      render json: AuditTypeSerializer.new(@audit_type, options).serialized_json, method: :show
     end
 
     # POST /audit_type

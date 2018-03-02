@@ -5,6 +5,9 @@ describe 'Audit Type', type: :request do
 
   context 'Get /api/v1/audit_types' do
     it 'Returns a list of audit types' do
+
+      FactoryBot.create_list :audit_type, 10, :with_components
+
       path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
 
       get path_to_get
@@ -13,7 +16,7 @@ describe 'Audit Type', type: :request do
     end
 
     it 'Returns a paginated list of audit types' do
-      FactoryBot.create_list :audit_type, 200
+      FactoryBot.create_list :audit_type, 100
 
       path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
 
@@ -23,6 +26,18 @@ describe 'Audit Type', type: :request do
 
       # 25 is the default page size
       expect(audit_types.count).to eq(25)
+    end
+
+    it 'fetches an audit_type with its audit_type_components' do
+      audit_type = FactoryBot.create :audit_type, :with_components
+
+      path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_type_url(host: 'localhost', id: audit_type.id)
+
+      get path_to_get
+
+      expect(response.status).to eq(200)
+
+      results = JSON.parse(response.body)
     end
   end
 
