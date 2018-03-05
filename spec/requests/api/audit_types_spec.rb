@@ -1,18 +1,30 @@
 require 'rails_helper'
 require 'rack/test'
 
-describe 'Audit Type', type: :request do
+RSpec.describe 'Audit Type', type: :request do
 
   context 'Get /api/v1/audit_types' do
     it 'Returns a list of audit types' do
 
-      FactoryBot.create_list :audit_type, 10, :with_components
+      NUMBER_TO_CREATE = 5
+
+      FactoryBot.create_list :audit_type, NUMBER_TO_CREATE, :with_components
 
       path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
 
       get path_to_get
 
       expect(response).to be_success
+      expect(response.body).to look_like_json
+
+      expect(json['data'].count).to eq(NUMBER_TO_CREATE)
+
+      NUMBER_TO_CREATE.times do |i|
+        title = json['data'][i]
+
+        CheckListEngine::AuditType.find_by_title title['attributes']['title']
+      end
+
     end
 
     it 'Returns a paginated list of audit types' do
@@ -22,10 +34,8 @@ describe 'Audit Type', type: :request do
 
       get path_to_get
 
-      audit_types = JSON.parse(response.body)
-
       # 25 is the default page size
-      expect(audit_types.count).to eq(25)
+      expect(json['data'].count).to eq(25)
     end
 
     it 'fetches an audit_type with its audit_type_components' do
@@ -37,7 +47,8 @@ describe 'Audit Type', type: :request do
 
       expect(response.status).to eq(200)
 
-      results = JSON.parse(response.body)
+      # TODO This feels like a mess.  4 is the number of audit_type_components that the factory makes
+      expect(json['data']['relationships']['audit_type_components']['data'].count).to eq(4)
     end
   end
 
@@ -50,6 +61,10 @@ describe 'Audit Type', type: :request do
       post path_to_post, params:  { audit_type: audit_type_attrs }
 
       expect(response.status).to eq(201)
+
+      new_audit_type = CheckListEngine::AuditType.find_by_title audit_type_attrs[:title]
+
+      expect(new_audit_type).not_to eq(nil)
     end
 
     it 'Will not create an audit type without a title' do
@@ -76,7 +91,7 @@ describe 'Audit Type', type: :request do
     end
   end
 
-  context "Delete an audit type" do
+  context 'Delete an audit type' do
     it 'Deletes an audit type' do
       new_audit_type = FactoryBot.create :audit_type
       path_to_delete = CheckListEngine::Engine.routes.url_helpers.api_audit_type_url(host: 'localhost', id: new_audit_type.id)

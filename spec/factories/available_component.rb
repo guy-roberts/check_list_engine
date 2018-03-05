@@ -13,10 +13,7 @@ FactoryBot.define do
   ]
 
   factory :available_component, :class => CheckListEngine::AvailableComponent do
-    title {
-      index =(rand EXAMPLES_OF_AVAILABLE_COMPONENTS.count - 1)
-      EXAMPLES_OF_AVAILABLE_COMPONENTS[index][:title]
-    }
+    title { Faker::Lorem.word + rand(10000).to_s }
     has_photo { false }
   end
 end

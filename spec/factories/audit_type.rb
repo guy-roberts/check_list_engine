@@ -4,7 +4,7 @@ FactoryBot.define do
 
     trait :with_components do
       after(:create) do |audit_type|
-        create_list(:audit_type_component, 6, audit_type: audit_type)
+        create_list(:audit_type_component, 4, audit_type: audit_type)
       end
     end
   end

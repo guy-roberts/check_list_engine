@@ -2,8 +2,10 @@ CheckListEngine::Engine.routes.draw do
 
   namespace :api do
     scope :v1 do
-      resources :audit_types
-      resources :audit_type_components
+      resources :audit_types do
+        resources :audit_type_components
+      end
+
       resources :available_components
     end
   end

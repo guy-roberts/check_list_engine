@@ -1,4 +1,4 @@
-require_dependency "check_list_engine/application_controller"
+require_dependency 'check_list_engine/application_controller'
 
 module CheckListEngine
   class Api::AuditTypeComponentsController < ApplicationController
@@ -27,25 +27,30 @@ module CheckListEngine
       @audit_type_component = AuditTypeComponent.new(audit_type_component_params)
 
       if @audit_type_component.save
-        redirect_to @audit_type_component, notice: 'Audit type component was successfully created.'
+        render json: @audit_type_component, status: :created
       else
-        render :new
+        render json: @audit_type_component.errors, status: :unprocessable_entity
       end
     end
 
     # PATCH/PUT /audit_type_components/1
     def update
       if @audit_type_component.update(audit_type_component_params)
-        redirect_to @audit_type_component, notice: 'Audit type component was successfully updated.'
+        render json: @audit_type_component, status: :created
       else
-        render :edit
+        render json: @audit_type_component.errors, status: :unprocessable_entity
       end
     end
 
     # DELETE /audit_type_components/1
     def destroy
-      @audit_type_component.destroy
-      redirect_to audit_type_components_url, notice: 'Audit type component was successfully destroyed.'
+      begin
+        @audit_type_component.destroy
+        head :no_content
+      rescue
+        render json: @audit_type_component.errors, status: :unprocessable_entity
+      end
+
     end
 
     private
@@ -56,7 +61,7 @@ module CheckListEngine
 
       # Only allow a trusted parameter "white list" through.
       def audit_type_component_params
-        params.require(:audit_type_component).permit(:title, :audit_type_id, :help_text, :position, :available_component_id, :has_image, :choices)
+        params.require(:audit_type_component).permit(:title, :audit_type_id, :help_text, :position, :available_component_id, :available_component, :has_image, :choices)
       end
   end
 end

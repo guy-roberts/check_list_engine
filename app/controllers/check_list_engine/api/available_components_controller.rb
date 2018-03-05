@@ -1,4 +1,4 @@
-require_dependency "check_list_engine/application_controller"
+require_dependency 'check_list_engine/application_controller'
 
 module CheckListEngine
   class Api::AvailableComponentsController < ApplicationController
@@ -27,7 +27,7 @@ module CheckListEngine
       @available_component = AvailableComponent.new(available_component_params)
 
       if @available_component.save
-        redirect_to @available_component, notice: 'Available component was successfully created.'
+        render json: @available_component, status: :created
       else
         render :new
       end

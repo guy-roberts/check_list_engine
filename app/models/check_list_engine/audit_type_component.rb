@@ -5,7 +5,7 @@ module CheckListEngine
     belongs_to :available_component
 
     validates :title, presence: true
-    validates :available_component_id, presence: true
+    #validates :available_component_id, presence: true
 
   end
 end

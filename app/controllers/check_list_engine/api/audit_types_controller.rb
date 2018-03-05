@@ -8,9 +8,9 @@ module CheckListEngine
     def index
       @audit_types = AuditType.order(:title).page params[:page]
 
-      AuditTypeSerializer.new(@audit_types).serialized_json
+      json_api_data = AuditTypeSerializer.new(@audit_types).serialized_json
 
-      render json: @audit_types
+      render json: json_api_data
     end
 
     def show
@@ -38,7 +38,7 @@ module CheckListEngine
       if @audit_type.update(audit_type_params)
         render json: @audit_type
       else
-        Rails.logger.error("Failed to update audit_type")
+        Rails.logger.error('Failed to update audit_type')
 
         render json: @audit_type.errors, status: :unprocessable_entity
       end
@@ -57,7 +57,7 @@ module CheckListEngine
 
       # Only allow a trusted parameter "white list" through.
       def audit_type_params
-        params.require(:audit_type).permit(:title)
+        params.require(:audit_type).permit(:title, :audit_type_components)
       end
   end
 end

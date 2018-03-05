@@ -22,17 +22,15 @@ require 'route_helper'
 
 require 'support/api_helper'
 require 'support/request_helper'
-
-
+require 'support/matchers/json_matchers'
 
 DatabaseCleaner.strategy = :truncation
-
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
   config.include ApiHelper, type: :api
-  config.include Requests::JsonHelpers, type: :api
+  config.include Requests::JsonHelpers, type: :request
 
   config.include RouteHelper, type: :routing
   config.include RouteHelper, type: :controller
