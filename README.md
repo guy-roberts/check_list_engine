@@ -7,6 +7,9 @@ of these check lists in action.  The components of a check list can be text, pho
 
 The idea is that somebody designs a checklist with these components and then delegates the job of actually completing them to another person.
 
+
+## Examples
+
 For example, the task of inspecting a rental house to see what maintainance work needs to be done might be represented as a check list
 containing
 
