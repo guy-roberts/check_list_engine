@@ -6,7 +6,7 @@ Check Lists are also stored by the api.  They are made up of sections within whi
 
 The idea is that this engine can be used in Rails applications to provide the REST API, then a front end component in something like Angular will be used to build and edit the templates.  Then the template definitions will be used in an Ionic mobile app so that people can fill in examples of the check lists.
 
-![alt text](https://github.com/guy-roberts/check_list_engine/blob/master/docs/check_list.png "Check Lists")
+![alt text](https://github.com/guy-roberts/check_list_engine/blob/master/docs/checklist_icon.png "Check Lists")
 
 
 ## Usage
