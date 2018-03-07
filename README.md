@@ -5,7 +5,8 @@
 This Rails Engine provides a way to store designs of check list or audits, to change those designs and to store instances
 of these check lists in action.  The components of a check list can be text, photos, signatures, choices, address, yes / no, dates and titles.
 
-The idea is that somebody designs a checklist with these components and then delegates the job of actually completing them to another person.
+The idea is that somebody designs a checklist with these components and then delegates the job of actually completing them to another person who usually has
+less experience of performing the task.
 
 
 ## Examples
@@ -41,27 +42,26 @@ This engine code does not contain any authentication code.
 
 
 ## Usage
-How to use my plugin.
+
+Data is served in json-api format, so you'll need a component on the client side
+to translate it into useful stuff.
 
 ## Installation
-Add this line to your application's Gemfile:
+Add the engine in your gemfile and then bundle
 
 ```ruby
-gem 'check_list_engine'
+gem 'check_list_engine', :git => 'git@github.com:guy-roberts/check_list_engine.git', :ref => 'd80bb65eb848cfd720adc122a803b3a3ab9bc0dd' # Token based authentication for Rails JSON APIs
 ```
 
-And then execute:
-```bash
-$ bundle
+There is no need to copy the migrations, leave them in the engine. Instead just
+
+```ruby
+rake db:migrate
 ```
 
-Or install it yourself as:
-```bash
-$ gem install check_list_engine
-```
+and they will be found from the engine.
 
-## Contributing
-Contribution directions go here.
+
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

@@ -85,5 +85,5 @@ production:
   <<: *default
   database: check_list_engine_production
   username: check_list_engine
-  password: <%= ENV['CONTINUITY_ENGINE_DATABASE_PASSWORD'] %>
+  password: <%= ENV['CHECK_LIST_ENGINE_DATABASE_PASSWORD'] %>
 

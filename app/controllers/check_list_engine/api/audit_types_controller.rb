@@ -4,6 +4,9 @@ module CheckListEngine
   class Api::AuditTypesController < ApplicationController
     before_action :set_audit_type, only: [:show, :edit, :update, :destroy]
 
+    #skip_before_filter :verify_authenticity_token
+
+
     # GET /audit_types
     def index
       @audit_types = AuditType.order(:title).page params[:page]
