@@ -9,7 +9,7 @@ module CheckListEngine
 
     # GET /audit_types
     def index
-      @audit_types = AuditType.order(:title).page params[:page]
+      @audit_types = AuditType.order(:title)#TODO Sort out Kaminari  .page params[:page]
 
       json_api_data = AuditTypeSerializer.new(@audit_types).serialized_json
 
