@@ -9,6 +9,7 @@ PATH
   remote: .
   specs:
     check_list_engine (0.1.0)
+      fast_jsonapi (~> 1.0.17)
       rails (~> 5.1.4)
 
 GEM
