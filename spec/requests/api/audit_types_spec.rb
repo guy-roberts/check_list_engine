@@ -27,7 +27,7 @@ RSpec.describe 'Audit Type', type: :request do
 
     end
 
-    it 'Returns a paginated list of audit types' do
+    xit 'Returns a paginated list of audit types' do
       FactoryBot.create_list :audit_type, 100
 
       path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')

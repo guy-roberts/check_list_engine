@@ -6,11 +6,16 @@ module CheckListEngine
 
     # GET /available_components
     def index
-      @available_components = AvailableComponent.all
+      @available_components = AvailableComponent.order(:title)
+
+      json_api_data = AuditTypeSerializer.new(@available_components).serialized_json
+
+      render json: json_api_data
     end
 
     # GET /available_components/1
     def show
+      render json: AuditTypeSerializer.new(@available_component, options).serialized_json, method: :show
     end
 
     # GET /available_components/new
