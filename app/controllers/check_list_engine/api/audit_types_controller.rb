@@ -21,7 +21,7 @@ module CheckListEngine
       # Tell the serializer to include information for the audit_type_components
       options = {}
       options[:include] = [:audit_type_components]
-
+      Rails.logger.info("Serializing an audit_type")
       render json: AuditTypeSerializer.new(@audit_type, options).serialized_json, method: :show
     end
 
