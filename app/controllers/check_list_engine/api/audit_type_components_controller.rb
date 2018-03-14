@@ -61,7 +61,7 @@ module CheckListEngine
 
       # Only allow a trusted parameter "white list" through.
       def audit_type_component_params
-        params.require(:audit_type_component).permit(:title, :audit_type_id, :help_text, :position, :available_component_id, :available_component, :has_image, :choices)
+        params.require(:audit_type_components).permit(:title, :audit_type_id, :help_text, :position, :available_component_id, :available_component, :has_image, :choices)
       end
   end
 end
