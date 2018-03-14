@@ -5,5 +5,5 @@ class AuditTypeComponentSerializer
   attributes :position, :title, :help_text, :choices, :has_image, :is_mandatory
 
   has_one :available_component
-  
+
 end
