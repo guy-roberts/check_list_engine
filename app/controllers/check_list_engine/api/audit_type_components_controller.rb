@@ -36,7 +36,9 @@ module CheckListEngine
     # PATCH/PUT /audit_type_components/1
     def update
       if @audit_type_component.update(audit_type_component_params)
-        render json: @audit_type_component, status: :created
+        json_api_data = AuditTypeComponentSerializer.new(@audit_type_component).serialized_json
+
+        render json: json_api_data, status: :created
       else
         render json: @audit_type_component.errors, status: :unprocessable_entity
       end
