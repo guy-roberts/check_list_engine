@@ -22,7 +22,7 @@ gem 'puma', '~> 3.0'
 # Pagination
 gem 'kaminari', '~> 1.1.1'
 
-gem 'fast_jsonapi'
+gem 'jsonapi-utils', '~> 0.7.0'
 
 gem 'simplecov', :require => false, :group => :test
 

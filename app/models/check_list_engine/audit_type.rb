@@ -1,5 +1,5 @@
 module CheckListEngine
-  class AuditType < ApplicationRecord
+  class AuditType < ActiveRecord::Base
 
     has_many :audit_type_components
 
