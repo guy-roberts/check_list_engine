@@ -1,9 +1,12 @@
-require_dependency 'check_list_engine/application_controller'
+#require_dependency 'check_list_engine/application_controller'
 
 module CheckListEngine
-  class AuditTypesController < BaseController
+  module Api
+    class AuditTypesController < CheckListEngine::BaseController
 
-    before_action :set_audit_type, only: [:show, :edit, :update, :destroy]
+      include JSONAPI::Utils
+
+      before_action :set_audit_type, only: [:show, :edit, :update, :destroy]
 
     # GET /audit_types
     def index
@@ -18,7 +21,6 @@ module CheckListEngine
 
     # POST /audit_type
     def create
-      a = 1
       audit_type = AuditType.new(resource_params)
 
       if audit_type.save
@@ -48,5 +50,12 @@ module CheckListEngine
       def set_audit_type
         @audit_type = AuditType.find(params[:id])
       end
+
+    # Only allow a trusted parameter "white list" through.
+      def audit_type_params
+        params.require(:check).permit(:title, :id)
+      end
+
+    end
   end
 end

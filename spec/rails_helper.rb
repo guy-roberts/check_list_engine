@@ -7,7 +7,7 @@ require 'rails/all'
 require 'spec_helper'
 require 'rspec/rails'
 
-require 'support/factory_bot'
+require 'factory_bot'
 require 'support/api_helper'
 
 require File.expand_path('../dummy/config/environment.rb', __FILE__)
