@@ -23,6 +23,7 @@ RSpec.describe 'Audit Type', type: :request do
 
       expect(json['data'].count).to eq(NUMBER_TO_CREATE)
 
+
       NUMBER_TO_CREATE.times do |i|
         title = json['data'][i]
 
@@ -42,11 +43,11 @@ RSpec.describe 'Audit Type', type: :request do
       expect(json['data'].count).to eq(25)
     end
 
-    xit 'fetches an audit_type with its audit_type_components' do
+    it 'fetches an audit_type with its audit_type_components' do
       audit_type = FactoryBot.create :audit_type, :with_components
 
       path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_type_url(host: 'localhost', id: audit_type.id)
-      #path_to_get += '?include=audit-type-components'
+      path_to_get += '?include=audit-type-components&fields=title'
 
       get path_to_get
 
