@@ -1,5 +1,5 @@
 module RouteHelper
   def self.included(base)
-    base.routes {CheckListEngine::Engine.routes}
+    base.routes {Engine.routes}
   end
 end
