@@ -19,9 +19,6 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
-# Pagination
-gem 'kaminari', '~> 1.1.1'
-
 gem 'jsonapi-utils', '~> 0.7.0'
 
 gem 'simplecov', :require => false, :group => :test

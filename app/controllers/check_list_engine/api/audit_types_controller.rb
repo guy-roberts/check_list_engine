@@ -53,7 +53,7 @@ module CheckListEngine
 
     # Only allow a trusted parameter "white list" through.
       def audit_type_params
-        params.require(:check).permit(:title, :id)
+        params.require(:audit_type).permit(:title, :id)
       end
 
     end

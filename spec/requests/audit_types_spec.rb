@@ -32,22 +32,22 @@ RSpec.describe 'Audit Type', type: :request do
 
     end
 
-    xit 'Returns a paginated list of audit types' do
+    it 'Returns a paginated list of audit types' do
       FactoryBot.create_list :audit_type, 100
 
       path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
 
       get path_to_get
 
-      # 25 is the default page size
-      expect(json['data'].count).to eq(25)
+      # 10 is the default page size
+      expect(json['data'].count).to eq(10)
     end
 
     it 'fetches an audit_type with its audit_type_components' do
       audit_type = FactoryBot.create :audit_type, :with_components
 
       path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_type_url(host: 'localhost', id: audit_type.id)
-      path_to_get += '?include=audit-type-components&fields=title'
+      path_to_get += '?include=audit-type-components'
 
       get path_to_get
 
