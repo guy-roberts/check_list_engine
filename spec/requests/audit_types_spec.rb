@@ -64,11 +64,11 @@ RSpec.describe 'Audit Type', type: :request do
 
       path_to_post = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
 
-      #valid_params = to_json_api(FactoryBot.build(:audit_type))
       valid_params = {:data=>{:type=>"audit_types", :attributes=>{"title"=>"Et est omnis delectus id magni sit fugit.6676"}}}
 
       expect do
-        post path_to_post, params: valid_params
+        # All requests that create or update must use the 'application/vnd.api+json' Content-Type
+        post path_to_post, params: valid_params.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' }
       end.to change(CheckListEngine::AuditType, :count).by(+1)
 
     end
@@ -76,9 +76,12 @@ RSpec.describe 'Audit Type', type: :request do
     it 'Will not create an audit type without a title' do
       path_to_post = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
 
-      post path_to_post
+      valid_params = {:data=>{:type=>"audit_types", :attributes=>{}}}
 
-      expect(response.status).to eq(400)
+      expect do
+        # All requests that create or update must use the 'application/vnd.api+json' Content-Type
+        post path_to_post, params: valid_params.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' }
+      end.to change(CheckListEngine::AuditType, :count).by(0)
     end
   end
 
@@ -90,7 +93,7 @@ RSpec.describe 'Audit Type', type: :request do
 
       valid_params = {:data=>{:type=>"audit_types", "id" => new_audit_type.id, :attributes=>{ "title"=>new_title }}}
 
-      patch  path_to_update, params:  valid_params
+      patch  path_to_update, params: valid_params.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' }
 
       expect(response.status).to eq(200)
       altered_audit_type = CheckListEngine::AuditType.find new_audit_type.id

@@ -1,54 +1,47 @@
 require 'rails_helper'
 require 'rack/test'
+require 'support/factory_bot'
 
 describe 'Audit Type Components', type: :request do
 
-  context 'Get a set of audit type components for an audit' do
-    it 'Returns a list of audit types' do
-      FactoryBot.create :audit_type, :with_components
-
-      path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
-
-      get path_to_get,  params:  { audit_type_id: CheckListEngine::AuditType.first }
-
-      expect(response.status).to eq(200)
-    end
-  end
-
   context 'Add a component to an AuditType' do
     it 'adds a component' do
-      audit_type = FactoryBot.create :audit_type, :with_components
+      audit_type = FactoryBot.create :audit_type
 
-      audit_type_component_attrs = FactoryBot.attributes_for :audit_type_component
+      path_to_post = CheckListEngine::Engine.routes.url_helpers.api_audit_type_components_url(host: 'localhost')
 
-      # TODO Shouldnt the path provice the associated audit_type ?
-      audit_type_component_attrs['audit_type_id'] = audit_type.id
-      # TODO This should be done in the factory, but I could not get it to add the association
-      audit_type_component_attrs['available_component_id'] = CheckListEngine::AvailableComponent.first.id
+      valid_params = {:data=>{:type=> "audit_type_components",
+                              :attributes=>{:title=>"Et est omnis delectus id magni sit fugit.6676"},
+                              :relationships => {
+                                  'audit-type' => {
+                                      :data => { :type => "audit_types",
+                                                 :id => audit_type.id
+                                      }
+                                  }
+                              }
+                           }
+                      }
 
-      the_path = CheckListEngine::Engine.routes.url_helpers.api_audit_type_audit_type_components_url(host: 'localhost', audit_type_id: audit_type.id)
+      expect do
+        post path_to_post,  params: valid_params.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' }
+      end.to change(CheckListEngine::AuditTypeComponent, :count).by(+1)
 
-      post the_path, params:  { audit_type_component: audit_type_component_attrs }
-
-      expect(response.status).to eq(201)
     end
 
-    xit 'lists components in the order defined by their position' do
+    it 'lists components in the order defined by their position' do
       audit_type = FactoryBot.create :audit_type, :with_components
 
       components = audit_type.audit_type_components
 
-      path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_types_url(host: 'localhost')
+      path_to_get = CheckListEngine::Engine.routes.url_helpers.api_audit_type_audit_type_components_url(host: 'localhost', audit_type_id: audit_type.id)
+      path_to_get += '?sort=position'
 
-      get path_to_get,  params:  { audit_type_id: audit_type.id }
+      get path_to_get
 
       expect(response.status).to eq(200)
 
       expected_order = components.order(:position).map {|c| c.id.to_s}
-      actual_order = json['data'][0]['relationships']['audit_type_components']['data'].map {|c|  c['id']}
-
-      # components.order(:position).map {|c| [c.id, c.position]  }
-      # json["data"][0]["relationships"]["audit_type_components"]["data"].map {|c|  [c["id"], c["position"] ]}
+      actual_order = json['data'].map {|da| da["id"]}
 
       expect(actual_order).to eq(expected_order)
     end
@@ -61,17 +54,16 @@ describe 'Audit Type Components', type: :request do
 
       component_to_change = audit_type.audit_type_components.first
 
-      path_to_update = CheckListEngine::Engine.routes.url_helpers.api_audit_type_audit_type_component_url(host: 'localhost',
-                                                                                                          id: component_to_change.id,
-                                                                                                          audit_type_id: audit_type.id)
+      path_to_update = CheckListEngine::Engine.routes.url_helpers.api_audit_type_component_url(host: 'localhost', id: component_to_change.id)
       changed_title = 'CHANGED TITLE' + component_to_change.title
 
-      put  path_to_update, params:  { audit_type_component: {title: changed_title, id: component_to_change.id  } }
+      valid_params = {:data=>{:type=>"audit_type_components", :id => component_to_change.id, :attributes=>{"title"=>changed_title}}}
 
-      expect(response.status).to eq(201)
-      altered_audit_type = CheckListEngine::AuditType.find audit_type.id
+      put  path_to_update, params: valid_params.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' }
 
-      expect(altered_audit_type.audit_type_components.first.title).to eq(changed_title)
+      expect(response.status).to eq(200)
+
+      expect(audit_type.audit_type_components.first.title).to eq(changed_title)
     end
   end
 
@@ -81,17 +73,17 @@ describe 'Audit Type Components', type: :request do
 
       component_to_delete = audit_type.audit_type_components.first
 
-      path_to_delete = CheckListEngine::Engine.routes.url_helpers.api_audit_type_audit_type_component_url(host: 'localhost',
-                                                                                                      id: component_to_delete.id, audit_type_id: audit_type.id)
-      delete path_to_delete
+      path_to_delete = CheckListEngine::Engine.routes.url_helpers.api_audit_type_component_url(host: 'localhost',
+                                                                                               id: component_to_delete.id)
+      expect do
+        delete path_to_delete
+      end.to change(CheckListEngine::AuditTypeComponent, :count).by(-1)
 
       expect(response.status).to eq(204)
-
     end
 
     xit 'will not delete a component if there are existing audits' do
 
     end
-
   end
 end
