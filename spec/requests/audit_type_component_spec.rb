@@ -10,20 +10,21 @@ describe 'Audit Type Components', type: :request do
 
       path_to_post = CheckListEngine::Engine.routes.url_helpers.api_audit_type_components_url(host: 'localhost')
 
-      valid_params = {:data=>{:type=> "audit_type_components",
-                              :attributes=>{:title=>"Et est omnis delectus id magni sit fugit.6676"},
-                              :relationships => {
-                                  'audit-type' => {
-                                      :data => { :type => "audit_types",
-                                                 :id => audit_type.id
-                                      }
-                                  }
-                              }
+      valid_params = {:data =>
+                          {:type => "audit_type_components",
+                           :attributes => {:title => "Et est omnis delectus id magni sit fugit.6676"},
+                           :relationships => {
+                               'audit-type' => {
+                                   :data => {:type => "audit_types",
+                                             :id => audit_type.id
+                                   }
+                               }
                            }
-                      }
+                          }
+      }
 
       expect do
-        post path_to_post,  params: valid_params.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' }
+        post path_to_post, params: valid_params.to_json, headers: {'Content-Type' => 'application/vnd.api+json'}
       end.to change(CheckListEngine::AuditTypeComponent, :count).by(+1)
 
     end
@@ -57,9 +58,9 @@ describe 'Audit Type Components', type: :request do
       path_to_update = CheckListEngine::Engine.routes.url_helpers.api_audit_type_component_url(host: 'localhost', id: component_to_change.id)
       changed_title = 'CHANGED TITLE' + component_to_change.title
 
-      valid_params = {:data=>{:type=>"audit_type_components", :id => component_to_change.id, :attributes=>{"title"=>changed_title}}}
+      valid_params = {:data => {:type => "audit_type_components", :id => component_to_change.id, :attributes => {"title" => changed_title}}}
 
-      put  path_to_update, params: valid_params.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' }
+      put path_to_update, params: valid_params.to_json, headers: {'Content-Type' => 'application/vnd.api+json'}
 
       expect(response.status).to eq(200)
 
