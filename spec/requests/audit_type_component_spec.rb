@@ -7,6 +7,7 @@ describe 'Audit Type Components', type: :request do
   context 'Add a component to an AuditType' do
     it 'adds a component' do
       audit_type = FactoryBot.create :audit_type
+      available_component = FactoryBot.create :available_component
 
       path_to_post = CheckListEngine::Engine.routes.url_helpers.api_audit_type_components_url(host: 'localhost')
 
@@ -17,6 +18,11 @@ describe 'Audit Type Components', type: :request do
                                'audit-type' => {
                                    :data => {:type => "audit_types",
                                              :id => audit_type.id
+                                   }
+                               },
+                               'available-component' => {
+                                   :data => {:type => "available_components",
+                                             :id => available_component.id
                                    }
                                }
                            }
