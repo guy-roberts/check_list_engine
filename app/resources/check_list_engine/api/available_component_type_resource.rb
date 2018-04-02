@@ -1,9 +1,9 @@
 module CheckListEngine
   module Api
-    class AvailableComponentResource < JSONAPI::Resource
+    class AvailableComponentTypeResource < JSONAPI::Resource
       model_name 'CheckListEngine::AvailableComponent'
 
-      attributes :title
+      attributes :title, :has_photo
     end
   end
 end

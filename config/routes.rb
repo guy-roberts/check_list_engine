@@ -4,7 +4,7 @@ CheckListEngine::Engine.routes.draw do
   namespace :api do
     # This resource is needed for json api resources to include it ! Exception was raised in engine_resource_url()
     jsonapi_resources :audit_type_components
-    jsonapi_resources :available_components
+    jsonapi_resources :available_component_types
 
     jsonapi_resources :audit_types do
       jsonapi_related_resources :audit_type_components

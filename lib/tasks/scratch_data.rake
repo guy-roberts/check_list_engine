@@ -29,7 +29,7 @@ namespace :check_list_engine do
     end
 
     def create_pest_audit
-      audit_type = CheckListEngine::AuditType.new title: Faker::Lorem.sentence
+      audit_type = CheckListEngine::AuditType.new title: "Pest control audit"
       audit_type.save!
 
       pest_audit_components = [
@@ -67,6 +67,48 @@ namespace :check_list_engine do
       ]
 
       rental_house_audit_components.each do |component|
+        CheckListEngine::AuditTypeComponent.new(component).save!
+      end
+
+    end
+
+    def create_burglar_alarm_inspection
+      audit_type = CheckListEngine::AuditType.new title: 'Burglar alarm service'
+      audit_type.save!
+
+      burglar_alarm_service_audit_components = [
+          { title: 'Customer name', position: 3, available_component_id: get_component_id('Title'), audit_type_id: audit_type.id, is_mandatory: true },
+          { title: 'Property Address', position: 1, available_component_id: get_component_id('Address'), audit_type_id: audit_type.id, is_mandatory: true },
+          { title: 'Type of installation', position: 2, available_component_id: get_component_id('Choices'), audit_type_id: audit_type.id, is_mandatory: true, choices: 'External Audible Only, Remote Signalling'},
+          { title: 'Check carrried out', position: 3, available_component_id: get_component_id('Section'), audit_type_id: audit_type.id, is_mandatory: true },
+          { title: 'That the installed system is fitted as per the documentation ', position: 5, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Tamper detection', position: 6, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Setting and unsetting', position: 7, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Entry and exit procedures', position: 8, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Power supplies, including any APS', position: 9, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Functioning of detectors and HDs', position: 6, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Visual inspection of potential problems (electrial and physical)', position: 10, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'What work was done ?', position: 11, available_component_id: get_component_id('Text'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Materials used', position: 12, available_component_id: get_component_id('Text'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Site specific risk assessment', position: 13, available_component_id: get_component_id('Section'), audit_type_id: audit_type.id, is_mandatory: true },
+          { title: 'EC01 Working at height', position: 14, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: false},
+          { title: 'EC04 Use of ladders', position: 15, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: false},
+          { title: 'EC18 use of hand tools', position: 16, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: false},
+          { title: 'EC26 electrical work up to 415v', position: 17, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: false},
+          { title: 'EC29 Electrical Testing and Commisioning ', position: 18, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: false},
+          { title: 'EC33 Displosal of waste materials', position: 19, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: false},
+          { title: 'Additional hazards identified in this job', position: 20, available_component_id: get_component_id('Text'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Overall risk rating', position: 21, available_component_id: get_component_id('Choices'), audit_type_id: audit_type.id, is_mandatory: true, choices: 'Hich, Low, Medium'},
+          { title: 'Have these controls brought the level of risk down as low as is practical ?', position: 22, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'I have read and understood the control measures identified above and agree to implement all the requirements', position: 23, available_component_id: get_component_id('Yes/No'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Time arrived', position: 24, available_component_id: get_component_id('Text'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Time departed', position: 24, available_component_id: get_component_id('Text'), audit_type_id: audit_type.id, is_mandatory: true},
+          { title: 'Engineers signature', position: 25, available_component_id: get_component_id('Signature'), audit_type_id: audit_type.id, is_mandatory: false},
+          { title: 'Customers signature', position: 26, available_component_id: get_component_id('Signature'), audit_type_id: audit_type.id, is_mandatory: false},
+
+      ]
+
+      burglar_alarm_service_audit_components.each do |component|
         CheckListEngine::AuditTypeComponent.new(component).save!
       end
 

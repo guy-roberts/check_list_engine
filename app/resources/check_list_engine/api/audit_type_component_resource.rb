@@ -6,7 +6,7 @@ module CheckListEngine
       attribute :name_of_component_type
 
       has_one :audit_type
-      has_one :available_component
+      has_one :available_component_type
 
       def name_of_component_type
         "#{@model.available_component.title}"
