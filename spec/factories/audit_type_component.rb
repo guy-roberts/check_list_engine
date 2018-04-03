@@ -4,6 +4,6 @@ FactoryBot.define do
     help_text { Faker::Lorem.sentence }
     position { rand 50 }
 
-    association  :available_component, factory: :available_component
+    association  :available_component_type, factory: :available_component_type
   end
 end

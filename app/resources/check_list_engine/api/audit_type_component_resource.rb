@@ -9,7 +9,7 @@ module CheckListEngine
       has_one :available_component_type
 
       def name_of_component_type
-        "#{@model.available_component.title}"
+        "#{@model.available_component_type.title}"
       end
 
       def self.sortable_fields(context)

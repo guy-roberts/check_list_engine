@@ -12,7 +12,7 @@ FactoryBot.define do
       {title: 'Yes/No'}
   ]
 
-  factory :available_component, :class => CheckListEngine::AvailableComponent do
+  factory :available_component_type, :class => CheckListEngine::AvailableComponentType do
     title { Faker::Lorem.word + rand(10000).to_s }
     has_photo { false }
   end

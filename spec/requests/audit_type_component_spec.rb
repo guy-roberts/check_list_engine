@@ -7,7 +7,7 @@ describe 'Audit Type Components', type: :request do
   context 'Add a component to an AuditType' do
     it 'adds a component' do
       audit_type = FactoryBot.create :audit_type
-      available_component = FactoryBot.create :available_component
+      available_component_type = FactoryBot.create :available_component_type
 
       path_to_post = CheckListEngine::Engine.routes.url_helpers.api_audit_type_components_url(host: 'localhost')
 
@@ -22,16 +22,17 @@ describe 'Audit Type Components', type: :request do
                                },
                                'available-component-type' => {
                                    :data => {:type => "available_component_types",
-                                             :id => available_component.id
+                                             :id => available_component_type.id
                                    }
                                }
                            }
                           }
       }
 
-      post path_to_post, params: valid_params.to_json, headers: {'Content-Type' => 'application/vnd.api+json'}
+      expect do
+        post path_to_post, params: valid_params.to_json, headers: {'Content-Type' => 'application/vnd.api+json'}
+      end.to change(CheckListEngine::AuditTypeComponent, :count).by(+1)
 
-     a = 1
     end
 
     it 'lists components in the order defined by their position' do
