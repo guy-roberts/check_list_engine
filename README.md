@@ -50,7 +50,7 @@ to translate it into useful stuff.
 Add the engine in your gemfile and then bundle
 
 ```ruby
-gem 'check_list_engine', :git => 'git@github.com:guy-roberts/check_list_engine.git', :ref => 'd80bb65eb848cfd720adc122a803b3a3ab9bc0dd' # Token based authentication for Rails JSON APIs
+gem 'check_list_engine', :git => 'git@github.com:guy-roberts/check_list_engine.git' # Token based authentication for Rails JSON APIs
 ```
 
 There is no need to copy the migrations, leave them in the engine. Instead just
