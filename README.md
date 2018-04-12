@@ -1,7 +1,5 @@
 # Check List Engine
 
-<img align="left"  src="https://github.com/guy-roberts/check_list_engine/blob/master/docs/checklist_icon.png">
-
 This Rails Engine provides a way to store designs of check list or audits, to change those designs and to store instances
 of these check lists in action.  The components of a check list can be text, photos, signatures, choices, address, yes / no, dates and titles.
 
