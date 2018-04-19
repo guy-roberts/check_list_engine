@@ -3,7 +3,7 @@ require 'rack/test'
 require 'support/api_spec_helper'
 require 'support/factory_bot'
 
-RSpec.describe 'Available Types', type: :request do
+RSpec.describe 'Available Component Types', type: :request do
 
   include APISpecHelper
 

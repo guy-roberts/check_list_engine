@@ -24,6 +24,9 @@ require 'support/api_helper'
 require 'support/request_helper'
 require 'support/matchers/json_matchers'
 
+# https://github.com/G5/jsonapi-resources-matchers
+require 'jsonapi/resources/matchers'
+
 DatabaseCleaner.strategy = :truncation
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

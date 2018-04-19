@@ -43,3 +43,7 @@ group :development, :test do
 
   gem 'rubocop', '~> 0.52.1'
 end
+
+group :test do
+  gem 'jsonapi-resources-matchers'
+end
