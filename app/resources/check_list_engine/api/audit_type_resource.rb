@@ -5,6 +5,8 @@ module CheckListEngine
       attributes :title
 
       has_many :audit_type_components
+
+      filters :title
     end
   end
 end
